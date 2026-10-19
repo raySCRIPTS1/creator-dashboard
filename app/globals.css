@@ -1,2 +1,75 @@
-@tailwind base;@tailwind components;@tailwind utilities;
-:root{color-scheme:dark}body{background:#090b11;color:#f4f5fa;font-family:Arial,Helvetica,sans-serif}*{box-sizing:border-box}input,select{background:#0c0e16;border:1px solid #303444;border-radius:10px;padding:10px 12px;color:white;min-width:0}button{transition:background .2s,transform .2s}button:hover{filter:brightness(1.13)}.panel{background:#11141e;border:1px solid #252a38;border-radius:18px}.navitem{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:11px;width:100%;text-align:left;color:#9298aa}.navitem.active{background:#29223c;color:#d9c8ff}.metric{font-size:clamp(24px,3vw,34px);font-weight:750;letter-spacing:-1px}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: 228 26% 5%;
+    --surface: 228 24% 8%;
+    --surface-2: 228 20% 11%;
+    --border: 228 16% 17%;
+    --foreground: 230 30% 96%;
+    --muted: 228 10% 62%;
+    --accent: 258 90% 72%;
+    --accent-strong: 258 80% 62%;
+    --positive: 158 64% 52%;
+    --negative: 350 89% 66%;
+    --ring: 258 90% 72%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.35);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.75);
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border bg-surface;
+  }
+  .field {
+    @apply h-11 w-full rounded-xl border bg-background px-3.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted/70 hover:border-muted/40 focus:border-accent focus:ring-2 focus:ring-accent/25;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium text-muted;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+}
